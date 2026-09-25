@@ -7,12 +7,29 @@ game_grid = [[['', ''] for _ in range(cols)] for _ in range(rows)]
 icons = ['❤️', '❤️', '❄️', '❄️', '🔵', '🔵', '🟪','🟪', '⭐','⭐', '🔶', '🔶']
 
 def print_game_grid(game_grid):
-    grid = f"""
- {game_grid[0][0][0]}   | {game_grid[0][1][0]}   | {game_grid[0][2][0]}   | {game_grid[0][3][0]}\n_____|_____|_____|_____
- {game_grid[1][0][0]}   | {game_grid[1][1][0]}   | {game_grid[1][2][0]}   | {game_grid[1][3][0]}\n_____|_____|_____|_____
- {game_grid[2][0][0]}   | {game_grid[2][1][0]}  | {game_grid[2][2][0]}  | {game_grid[2][3][0]}\n     |     |     |"""
+    grid = '_____________________________\n|      |      |      |      |\n'
+    for j in range(rows):
+        for i in range(cols):
+            if int(game_grid[j][i][0]) <= 9:
+                grid = grid + '|   '
+            else:
+                grid = grid + '|  '
+            grid = grid + game_grid[j][i][0]
+            if i == len(game_grid[0]) - 1:
+                if int(game_grid[j][i][0]) <= 9:
+                    grid = grid + '  |'
+                else:
+                    grid = grid + '  |'
+            else:
+                if int(game_grid[j][i][0]) <= 9:
+                    grid = grid + '  '
+                else:
+                    grid = grid + '  '
+        if j == len(game_grid) - 1:
+            grid = grid + '\n|      |      |      |      |\n_____________________________\n'
+        else:
+            grid = grid + '\n|      |      |      |      |\n_____________________________\n|      |      |      |      |\n'
     print(grid)
-
 
 def initialize_grid(grid, pics):
     random.shuffle(pics)
