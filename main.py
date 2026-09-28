@@ -6,7 +6,7 @@ game_rows = 3
 game_columns = 4
 game_grid = [[['', '', ''] for _ in range(game_columns)] for _ in range(game_rows)]
 
-icons = ['❤️', '❤️', '❄️', '❄️', '🔵', '🔵', '🟪','🟪', '⭐','⭐', '🔶', '🔶']
+icons = ['❤️', '❤️', '❄️', '❄️', '🔵', '🔵', '🟪','🟪', '🔴','🔴', '🔶', '🔶']
 
 def print_game_grid(card_grid):
     grid_rows = len(card_grid)
