@@ -2,16 +2,46 @@ import random
 from itertools import product
 import os
 
-game_rows = 3
-game_columns = 4
+while True:
+    difficulty = input("Choose a difficulty ( e (easy), m (medium), h (hard): \n")
+    if difficulty == 'e':
+        game_rows = 3
+        game_columns = 4
+        break
+    elif difficulty == 'm':
+        game_rows = 4
+        game_columns = 6
+        break
+    elif difficulty == 'h':
+        game_rows = 6
+        game_columns = 6
+        break
+    print("Please enter e (easy), m (medium), h (hard): \n")
+
 game_grid = [[['', '', ''] for _ in range(game_columns)] for _ in range(game_rows)]
 
 icons = ['❤️', '❤️', '❄️', '❄️', '🔵', '🔵', '🟪','🟪', '🔴','🔴', '🔶', '🔶']
+icons_medium = ['❤️', '❤️', '❄️', '❄️', '🔵', '🔵', '🟪','🟪', '🔴','🔴', '🔶', '🔶'
+               ,'💙', '💙', '🟥', '🟥', '🟡', '🟡', '🟨','🟨', '💚','💚', '🔷', '🔷']
+icons_hard = ['❤️', '❤️', '❄️', '❄️', '🔵', '🔵', '🟪','🟪', '🔴','🔴', '🔶', '🔶'
+             ,'💙', '💙', '🟥', '🟥', '🟡', '🟡', '🟨','🟨', '💚','💚', '🔷', '🔷'
+             ,'💛', '💛', '🟦', '🟦', '🟢', '🟢', '🟩','🟩', '🧡','🧡', '♦️', '♦️']
+# more icons 🟠🟡🟢🟣🟥🟧🟨🟩🟦♦️🔷🧡💛💚💜💙🤍
 
 def print_game_grid(card_grid):
     grid_rows = len(card_grid)
     grid_columns = len(card_grid[0])
-    grid = '_____________________________\n|      |      |      |      |\n'
+    grid_begin_e = '_____________________________\n|      |      |      |      |\n'
+    grid_begin_m_l = '___________________________________________\n|      |      |      |      |      |      |\n'
+    grid_middle_e = '\n|      |      |      |      |\n_____________________________\n|      |      |      |      |\n'
+    grid_middle_m_l = '\n|      |      |      |      |      |      |\n___________________________________________\n|      |      |      |      |      |      |\n'
+    grid_end_e = '\n|      |      |      |      |\n_____________________________\n'
+    grid_end_m_l = '\n|      |      |      |      |      |      |\n___________________________________________\n'
+    if grid_columns == 6:
+        grid = grid_begin_m_l
+    else:
+        grid = grid_begin_e
+
     for row in range(grid_rows):
         for column in range(grid_columns):
             if int(card_grid[row][column][0]) <= 9:
@@ -42,9 +72,16 @@ def print_game_grid(card_grid):
                 else:
                     grid = grid + '  '
         if row == len(card_grid) - 1:
-            grid = grid + '\n|      |      |      |      |\n_____________________________\n'
+            if grid_columns == 6:
+                grid = grid + grid_end_m_l
+            else:
+                grid = grid + grid_end_e
         else:
-            grid = grid + '\n|      |      |      |      |\n_____________________________\n|      |      |      |      |\n'
+            if grid_columns == 6:
+                grid = grid + grid_middle_m_l
+            else:
+                grid = grid + grid_middle_e
+
     print(grid)
 
 def initialize_grid(grid, pics):
@@ -62,7 +99,12 @@ def initialize_grid(grid, pics):
             num += 1
     return grid
 ############################################################################
-game_grid = initialize_grid(game_grid, icons)
+if difficulty == 'e':
+    game_grid = initialize_grid(game_grid, icons)
+elif difficulty == 'm':
+    game_grid = initialize_grid(game_grid, icons_medium)
+else:
+    game_grid = initialize_grid(game_grid, icons_hard)
 # print(game_grid)
 print_game_grid(game_grid)
 number_of_turn = 0
