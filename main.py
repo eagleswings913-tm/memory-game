@@ -65,31 +65,38 @@ game_complete = False
 while not game_complete:
     number_of_turn += 1
     choice_2 = ""
-    choice_1 = input("Choose a square: \n")
-    card_1 = int(choice_1) - 1
-    card_1_row = card_1 // game_columns
-    card_1_column = card_1 % game_columns
-    square_1_value = game_grid[card_1_row][card_1_column][0]
-    square_1_pic = game_grid[card_1_row][card_1_column][1]
-    square_1_flag = game_grid[card_1_row][card_1_column][2]
-    if square_1_value == choice_1 and square_1_flag != 2:
-        game_grid[card_1_row][card_1_column][2] = '1'
-        print_game_grid(game_grid)
-    else:
-        print(f"Square {choice_1} is not available! Choose another square")
+    while True:
+        choice_1 = input("Choose a square: \n")
+        card_1 = int(choice_1) - 1
+        card_1_row = card_1 // game_columns
+        card_1_column = card_1 % game_columns
+        square_1_value = game_grid[card_1_row][card_1_column][0]
+        square_1_pic = game_grid[card_1_row][card_1_column][1]
+        square_1_flag = game_grid[card_1_row][card_1_column][2]
+        if square_1_value == choice_1 and square_1_flag != '2':
+            game_grid[card_1_row][card_1_column][2] = '1'
+            print_game_grid(game_grid)
+            break
+        else:
+            print(f"Square {choice_1} is not available! Choose another square")
 
-    choice_2 = input("Choose a square: \n")
-    card_2 = int(choice_2) - 1
-    card_2_row = card_2 // game_columns
-    card_2_column = card_2 % game_columns
-    square_2_value = game_grid[card_2_row][card_2_column][0]
-    square_2_pic = game_grid[card_2_row][card_2_column][1]
-    square_2_flag = game_grid[card_2_row][card_2_column][2]
-    if square_2_value == choice_2 and square_2_flag != 2:
-        game_grid[card_2_row][card_2_column][2] = '1'
-        print_game_grid(game_grid)
-    else:
-        print(f"Square {choice_2} is not available! Choose another square")
+    while True:
+        choice_2 = input("Choose a square: \n")
+        if choice_2 == choice_1:
+            print(f"You already chose {choice_2} square! Please choose another square")
+        else:
+            card_2 = int(choice_2) - 1
+            card_2_row = card_2 // game_columns
+            card_2_column = card_2 % game_columns
+            square_2_value = game_grid[card_2_row][card_2_column][0]
+            square_2_pic = game_grid[card_2_row][card_2_column][1]
+            square_2_flag = game_grid[card_2_row][card_2_column][2]
+            if square_2_value == choice_2 and square_2_flag != '2':
+                game_grid[card_2_row][card_2_column][2] = '1'
+                print_game_grid(game_grid)
+                break
+            else:
+                print(f"Square {choice_2} is not available! Choose another square")
 
     if square_1_pic == square_2_pic:
         print("The cards match!")
