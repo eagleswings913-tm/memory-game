@@ -1,5 +1,6 @@
 import random
 from itertools import product
+import os
 
 game_rows = 3
 game_columns = 4
@@ -14,17 +15,21 @@ def print_game_grid(card_grid):
     for row in range(grid_rows):
         for column in range(grid_columns):
             if int(card_grid[row][column][0]) <= 9:
-                grid = grid + '|   '
+                if card_grid[row][column][2] == '1':
+                    grid = grid + '|  '
+                else:
+                    grid = grid + '|   '
             else:
                 grid = grid + '|  '
-            # print(f'square {card_grid[row][column][0]} flag = {card_grid[row][column][2]}')
+
             if card_grid[row][column][2] == '0':
                 grid = grid + card_grid[row][column][0]
             elif card_grid[row][column][2] == '1':
-                # print(f'Square number = {card_grid[row][column][0]}')
                 grid = grid + card_grid[row][column][1]
-            else:
+            elif card_grid[row][column][2] == '2' and int(card_grid[row][column][0]) <= 9:
                 grid = grid + ' '
+            else:
+                grid = grid + '  '
 
             if column == len(card_grid[0]) - 1:
                 if int(card_grid[row][column][0]) <= 9 or (int(card_grid[row][column][0]) > 9 and card_grid[row][column][2] == '2'):
@@ -104,6 +109,7 @@ while not game_complete:
         game_grid[card_2_row][card_2_column][2] = '2'
         # print(game_grid)
         input("Press any key to continue...")
+        os.system('cls')
         print_game_grid(game_grid)
     else:
         print("The cards do not match!")
@@ -111,6 +117,7 @@ while not game_complete:
         game_grid[card_2_row][card_2_column][2] = '0'
         # print(game_grid)
         input("Press any key to continue...")
+        os.system('cls')
         print_game_grid(game_grid)
 
     for row1, column1 in product(range(game_rows), range(game_columns)):
